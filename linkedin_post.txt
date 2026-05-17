@@ -1,0 +1,59 @@
+Started my HPC internship thinking:
+
+“Yeah yeah… just run the model on GPUs and vibe.”
+
+Then my first training job crashed in 11 minutes.
+OOM. Absolute cinema.
+
+Next run finally worked… but GPU utilization was chilling at 31%.
+
+At that point I realized:
+we really be throwing expensive GPUs at problems and hoping for the best 😭
+
+Nobody around me actually *knew*:
+→ how much memory a model would consume
+→ how many GPUs were actually needed
+→ whether the job was compute-bound or just wasting resources
+
+Everything was basically:
+“increase memory and rerun bro”
+
+And I was like nahhh… there has to be a smarter way.
+
+So during my internship, I built a tool that estimates the *entire training setup* before the job even starts.
+
+You give it:
+→ model size
+→ framework + precision
+→ training strategy
+→ cluster/GPU specs
+
+And it calculates:
+→ how many GPUs/nodes you actually need
+→ memory usage breakdown
+→ communication overhead
+→ optimized resource allocation
+→ a full SLURM job script automatically
+
+Basically:
+less guessing, less crashing, less burning GPU hours for no reason.
+
+Craziest thing I discovered while building it?
+
+Optimizer states for a 7B model can eat MORE memory than the model weights themselves.
+
+Also one tiny config tweak for InfiniBand improved throughput by ~22%.
+
+One line.
+That’s it.
+HPC is lowkey black magic sometimes.
+
+Still improving the tool with runtime profiling + roofline analysis next, but this project genuinely changed how I think about distributed training.
+
+As an HPC intern, I didn’t want to just *use* the cluster.
+
+I wanted to understand how to use the cluster efficiently.
+
+And honestly? That was way more interesting.
+
+#HPC #DistributedSystems #MachineLearning #PyTorch #GPU #DeepLearning #MLOps #Internship #SLURM
